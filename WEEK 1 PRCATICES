@@ -1,0 +1,122 @@
+# Digital Design – Week 1 (Combinational Basics)
+
+## 📌 Description
+Practice codes for Week 1 of the Digital Systems Roadmap. Covers combinational logic circuits with truth tables, equations, and Verilog implementations. Each section includes a slot for the corresponding EDA Playground link.
+
+---
+
+### 🔹 Number Systems & Conversions
+*(Concept based – no truth table)*  
+
+
+---
+
+### 🔹 Boolean Algebra & Logic Gates
+**Truth Table – Basic Gates**
+
+| A | B | AND | OR | XOR | NAND | NOR | XNOR |
+|---|---|-----|----|-----|------|-----|------|
+| 0 | 0 |  0  | 0  |  0  |  1   |  1  |  1   |
+| 0 | 1 |  0  | 1  |  1  |  1   |  0  |  0   |
+| 1 | 0 |  0  | 1  |  1  |  1   |  0  |  0   |
+| 1 | 1 |  1  | 1  |  0  |  0   |  0  |  1   |
+
+[https://edaplayground.com/x/AV8g](OR GATE VRILOG)
+[https://edaplayground.com/x/J77X](NOT GATE)
+---
+
+### 🔹 Half Adder
+**Truth Table**
+
+| A | B | SUM | CARRY |
+|---|---|-----|-------|
+| 0 | 0 |  0  |   0   |
+| 0 | 1 |  1  |   0   |
+| 1 | 0 |  1  |   0   |
+| 1 | 1 |  0  |   1   |
+
+[https://edaplayground.com/x/h4gh](HALF ADDER VERILOG WITH TB)
+
+---
+
+### 🔹 Full Adder
+**Truth Table**
+
+| A | B | Cin | SUM | CARRY |
+|---|---|-----|-----|-------|
+| 0 | 0 |  0  |  0  |   0   |
+| 0 | 0 |  1  |  1  |   0   |
+| 0 | 1 |  0  |  1  |   0   |
+| 0 | 1 |  1  |  0  |   1   |
+| 1 | 0 |  0  |  1  |   0   |
+| 1 | 0 |  1  |  0  |   1   |
+| 1 | 1 |  0  |  0  |   1   |
+| 1 | 1 |  1  |  1  |   1   |
+
+[https://edaplayground.com/x/ZtA9](FULL ADDER VERILOG WITH TB)
+
+---
+
+### 🔹 Half Subtractor
+**Truth Table**
+
+| A | B | DIFF | BORROW |
+|---|---|------|--------|
+| 0 | 0 |  0   |   0    |
+| 0 | 1 |  1   |   1    |
+| 1 | 0 |  1   |   0    |
+| 1 | 1 |  0   |   0    |
+
+[https://edaplayground.com/x/XBGD](HALF SUBTRACTOR VERILOG WITH TB)
+
+---
+
+### 🔹 Full Subtractor
+**Truth Table**
+
+| A | B | Bin | DIFF | BORROW |
+|---|---|-----|------|--------|
+| 0 | 0 |  0  |  0   |   0    |
+| 0 | 0 |  1  |  1   |   1    |
+| 0 | 1 |  0  |  1   |   1    |
+| 0 | 1 |  1  |  0   |   1    |
+| 1 | 0 |  0  |  1   |   0    |
+| 1 | 0 |  1  |  0   |   0    |
+| 1 | 1 |  0  |  0   |   0    |
+| 1 | 1 |  1  |  1   |   1    |
+
+[https://edaplayground.com/x/V5E7](FULL SUBTRACCTOR WITH VERILOG AND TB)
+
+---
+
+### 🔹 Multiplexer (MUX)
+**Example: 4:1 MUX Truth Table**
+
+| S1 | S0 | I0 | I1 | I2 | I3 | Y |
+|----|----|----|----|----|----|---|
+| 0  | 0  |  X |  X |  X |  X | I0|
+| 0  | 1  |  X |  X |  X |  X | I1|
+| 1  | 0  |  X |  X |  X |  X | I2|
+| 1  | 1  |  X |  X |  X |  X | I3|
+
+[https://edaplayground.com/x/vyTb](MUX IN 4;1 WITH VERILOG AND TB)
+
+
+### 🔹 Demultiplexer (DEMUX)
+**Example: 1:4 DEMUX Truth Table**
+
+| S1 | S0 | D | Y0 | Y1 | Y2 | Y3 |
+|----|----|---|----|----|----|----|
+| 0  | 0  | 1 |  1 |  0 |  0 |  0 |
+| 0  | 1  | 1 |  0 |  1 |  0 |  0 |
+| 1  | 0  | 1 |  0 |  0 |  1 |  0 |
+| 1  | 1  | 1 |  0 |  0 |  0 |  1 |
+
+[https://edaplayground.com/x/h4qx](MUX IN 4;1 WITH VERILOG AND TB)
+
+---
+
+## ✅ Target
+- All basic combinational circuits implemented in Verilog  
+- Truth tables documented for clarity  
+- Playground links for each design  

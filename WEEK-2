@@ -1,13 +1,474 @@
 https://www.edaplayground.com/x/DWxZ
 EDA PLAYGROUND MAIN ID👆🏻
 
-JK RACE AROUND CONDITION
-https://www.edaplayground.com/x/wfyN
-T FLIP FLOP
-https://www.edaplayground.com/x/T36p
-JK FF
-https://www.edaplayground.com/x/DWxZ
-D FF
-https://www.edaplayground.com/x/M2mX
-SR LATCH
-https://www.edaplayground.com/x/raf_
+
+MOORE FSM:https:https://edaplayground.com/x/bi62
+MEALY FSM:https:https://edaplayground.com/x/BMyD
+SYNC DOWN COUNTER:https://edaplayground.com/x/jbR8
+SYNC UP COUNTER :https://edaplayground.com/x/j4dj
+ASYNC DOWN COUNTER:https://edaplayground.com/x/YnrQ
+ASYNC UP COUNTER:https://edaplayground.com/x/KFJK
+SISO REGISTER:https://edaplayground.com/x/9UCw
+SIPO REGISTER:https://edaplayground.com/x/B6Y6
+PISO REGISTER:https://edaplayground.com/x/nJ_W
+PIPO REGISTER: https://edaplayground.com/x/vnqU
+JK RACE AROUND CONDITION:https://www.edaplayground.com/x/wfyN
+T FLIP FLOP:https://www.edaplayground.com/x/T36p
+JK FF:https://www.edaplayground.com/x/DWxZ
+D FF:https://www.edaplayground.com/x/M2mX
+SR LATCH:https://www.edaplayground.com/x/raf_
+
+# Week 2/8 — Digital Design: Sequential Basics
+
+## Overview
+
+This week focused on **Sequential Digital Design**, where circuit outputs depend on both the **current inputs and previous state**.
+
+### Learning Flow
+
+**Concept → Truth Table / State Behavior → RTL Design → Testbench → Simulation → Waveform Analysis → Verification**
+
+### Week 2 Target
+
+> Build a strong understanding of **latches, flip-flops, master-slave operation, shift registers, counters, and FSMs**, and implement them in **Verilog RTL with testbenches and simulation**.
+
+---
+
+## Topics Completed
+
+| # | Topic | Implementation / Practice |
+|---|---|---|
+| 1 | SR Latch | Verilog RTL + Testbench + Simulation |
+| 2 | JK Flip-Flop | Verilog RTL + Testbench + Simulation |
+| 3 | D Flip-Flop | Verilog RTL + Testbench + Simulation |
+| 4 | T Flip-Flop | Verilog RTL + Testbench + Simulation |
+| 5 | Master-Slave JK Flip-Flop | Verilog RTL + Testbench + Race-Around study |
+| 6 | Shift Registers | SISO, SIPO, PISO, PIPO |
+| 7 | Asynchronous Counters | 4-bit Up / Down |
+| 8 | Synchronous Counters | 4-bit Up / Down |
+| 9 | FSM Basics | Moore FSM + Mealy FSM |
+| 10 | Verification Practice | Testbench, `$monitor`, waveform and output analysis |
+
+---
+
+# 1. SR Latch
+
+### Core Idea
+
+An **SR (Set-Reset) Latch** is a basic sequential circuit that stores **1 bit of information**.
+
+- **S = 1, R = 0 → Set → Q = 1**
+- **S = 0, R = 1 → Reset → Q = 0**
+- **S = 0, R = 0 → Hold previous state**
+- **S = 1, R = 1 → Invalid condition** for the basic active-high SR latch
+
+### What I Learned
+
+The main concept is **memory**: unlike a combinational circuit, the output can depend on the previous state.
+
+### EDA Playground
+
+🔗 [SR Latch — RTL + Testbench + Simulation](https://www.edaplayground.com/x/raf_)
+
+---
+
+# 2. Flip-Flops — JK, D and T
+
+Flip-flops are clock-controlled sequential storage elements used extensively in digital systems.
+
+## JK Flip-Flop
+
+| J | K | Next State |
+|---|---|---|
+| 0 | 0 | Hold |
+| 0 | 1 | Reset |
+| 1 | 0 | Set |
+| 1 | 1 | Toggle |
+
+### Key Point
+
+JK Flip-Flop removes the invalid input combination of the basic SR Flip-Flop and provides a **toggle** operation.
+
+🔗 [JK Flip-Flop — RTL + Testbench + Simulation](https://www.edaplayground.com/x/DWxZ)
+
+---
+
+## D Flip-Flop
+
+| D | Next Q |
+|---|---|
+| 0 | 0 |
+| 1 | 1 |
+
+A D Flip-Flop transfers the input **D to Q at the active clock edge**.
+
+### Typical Use
+
+- Data storage
+- Registers
+- Pipelining
+
+🔗 [D Flip-Flop — RTL + Testbench + Simulation](https://www.edaplayground.com/x/M2mX)
+
+---
+
+## T Flip-Flop
+
+| T | Next State |
+|---|---|
+| 0 | Hold |
+| 1 | Toggle |
+
+### Typical Use
+
+- Counters
+- Frequency division
+- Sequential control circuits
+
+🔗 [T Flip-Flop — RTL + Testbench + Simulation](https://www.edaplayground.com/x/T36p)
+
+---
+
+# 3. Master-Slave JK Flip-Flop & Race-Around Condition
+
+## Why Master-Slave?
+
+A master-slave arrangement uses two stages controlled by opposite clock phases so that the state change is controlled and unwanted repeated toggling can be avoided.
+
+## Race-Around Condition
+
+In a level-sensitive JK Flip-Flop, when:
+
+**J = 1, K = 1**
+
+the output is supposed to toggle.
+
+If the clock pulse remains active long enough, the output may toggle repeatedly during the same clock pulse. This is called the **Race-Around Condition**.
+
+### Important Takeaway
+
+The master-slave approach separates the input-capturing phase from the output-changing phase, helping prevent repeated toggling during one clock cycle.
+
+🔗 [JK Race-Around Condition — RTL + Testbench + Simulation](https://www.edaplayground.com/x/wfyN)
+
+---
+
+# 4. Shift Registers
+
+Shift registers store and move binary data **bit by bit** with clock pulses.
+
+## SISO — Serial In Serial Out
+
+**Data Flow:**
+
+`Serial Input → Register → Serial Output`
+
+### Use
+
+- Serial data transfer
+- Delay elements
+
+🔗 [SISO Register](https://www.edaplayground.com/x/9UCw)
+
+---
+
+## SIPO — Serial In Parallel Out
+
+**Data Flow:**
+
+`Serial Input → Register → Parallel Output`
+
+### Use
+
+- Serial-to-parallel data conversion
+- Data interfacing
+
+🔗 [SIPO Register](https://www.edaplayground.com/x/B6Y6)
+
+---
+
+## PISO — Parallel In Serial Out
+
+**Data Flow:**
+
+`Parallel Input → Register → Serial Output`
+
+### Use
+
+- Parallel-to-serial data conversion
+- Serial data transmission
+
+🔗 [PISO Register](https://www.edaplayground.com/x/nJ_W)
+
+---
+
+## PIPO — Parallel In Parallel Out
+
+**Data Flow:**
+
+`Parallel Input → Register → Parallel Output`
+
+### Use
+
+- Temporary storage
+- Data transfer between digital blocks
+
+🔗 [PIPO Register](https://www.edaplayground.com/x/vnqU)
+
+---
+
+# 5. Counters
+
+Counters are sequential circuits that change their stored binary state in a defined sequence.
+
+## Asynchronous (Ripple) Counters
+
+In an asynchronous counter, the clock is applied directly to the first flip-flop and the following flip-flops are triggered by the previous stage.
+
+### Practiced
+
+- 4-bit Asynchronous Up Counter
+- 4-bit Asynchronous Down Counter
+
+🔗 [4-bit Async Up Counter](https://www.edaplayground.com/x/KFJK)
+
+🔗 [4-bit Async Down Counter](https://www.edaplayground.com/x/YnrQ)
+
+---
+
+## Synchronous Counters
+
+In a synchronous counter, all flip-flops receive the **same clock** and state transitions occur together.
+
+### Practiced
+
+- 4-bit Synchronous Up Counter
+- 4-bit Synchronous Down Counter
+
+🔗 [4-bit Sync Up Counter](https://www.edaplayground.com/x/j4dj)
+
+🔗 [4-bit Sync Down Counter](https://www.edaplayground.com/x/jbR8)
+
+---
+
+## Asynchronous vs Synchronous Counter
+
+| Feature | Asynchronous Counter | Synchronous Counter |
+|---|---|---|
+| Clocking | Ripple from stage to stage | Common clock |
+| State Transition | Propagates through stages | Happens together |
+| Timing | Ripple / propagation delay | More coordinated |
+| Design | Simpler structure | More controlled timing |
+
+### Practical Relevance
+
+Counters are important building blocks in:
+
+- Timers
+- Event counters
+- Frequency division
+- Digital control
+- RTL systems
+
+---
+
+# 6. Finite State Machine (FSM) Basics
+
+An **FSM (Finite State Machine)** represents a sequential system using a finite number of states.
+
+### FSM Design Flow
+
+**Inputs → Current State → Next-State Logic → Next State → Output**
+
+Two important FSM styles were practiced.
+
+---
+
+## Moore FSM
+
+Output depends only on the **current state**.
+
+**Output = f(Current State)**
+
+🔗 [Moore FSM — RTL + Testbench + Simulation](https://www.edaplayground.com/x/bi62)
+
+---
+
+## Mealy FSM
+
+Output depends on the **current state and input**.
+
+**Output = f(Current State, Input)**
+
+🔗 [Mealy FSM — RTL + Testbench + Simulation](https://www.edaplayground.com/x/BMyD)
+
+---
+
+## Moore vs Mealy
+
+| Feature | Moore FSM | Mealy FSM |
+|---|---|---|
+| Output depends on | Current State | Current State + Input |
+| Output change | State dependent | State + input dependent |
+| Main focus | State-based output | Input + state based output |
+
+### Practical Relevance
+
+FSMs are widely used in:
+
+- Control logic
+- Protocol controllers
+- Sequence detectors
+- Communication logic
+- Digital system control
+
+---
+
+# 7. Testbench & Verification Practice
+
+This week was not only about writing RTL.
+
+Each design was practiced with a **testbench** and checked through simulation.
+
+### Verification Flow
+
+1. Apply test inputs.
+2. Generate required clock/reset.
+3. Run simulation.
+4. Observe simulation output.
+5. Inspect waveform.
+6. Compare actual result with expected behavior.
+7. Debug mismatches.
+
+### Testbench / Verilog Concepts Practiced
+
+- `reg`
+- `wire`
+- `always`
+- `posedge`
+- `negedge`
+- Non-blocking assignment `<=`
+- Clock generation
+- Reset handling
+- `$monitor`
+- `$dumpfile`
+- `$dumpvars`
+- Waveform analysis
+
+---
+
+# 8. EDA Playground Practice Collection
+
+## Flip-Flops / Latches
+
+- [SR Latch](https://www.edaplayground.com/x/raf_)
+- [D Flip-Flop](https://www.edaplayground.com/x/M2mX)
+- [JK Flip-Flop](https://www.edaplayground.com/x/DWxZ)
+- [T Flip-Flop](https://www.edaplayground.com/x/T36p)
+- [JK Race-Around Condition](https://www.edaplayground.com/x/wfyN)
+
+## Shift Registers
+
+- [SISO](https://www.edaplayground.com/x/9UCw)
+- [SIPO](https://www.edaplayground.com/x/B6Y6)
+- [PISO](https://www.edaplayground.com/x/nJ_W)
+- [PIPO](https://www.edaplayground.com/x/vnqU)
+
+## Counters
+
+- [Asynchronous Up Counter](https://www.edaplayground.com/x/KFJK)
+- [Asynchronous Down Counter](https://www.edaplayground.com/x/YnrQ)
+- [Synchronous Up Counter](https://www.edaplayground.com/x/j4dj)
+- [Synchronous Down Counter](https://www.edaplayground.com/x/jbR8)
+
+## FSM
+
+- [Moore FSM](https://www.edaplayground.com/x/bi62)
+- [Mealy FSM](https://www.edaplayground.com/x/BMyD)
+
+---
+
+# 9. What I Can Explain After Week 2
+
+After completing this week, I practiced and can explain:
+
+- Difference between **combinational and sequential logic**
+- Why latches and flip-flops are used for **state storage**
+- Working of **SR, JK, D and T** storage elements
+- **JK Race-Around Condition**
+- **Master-Slave JK Flip-Flop**
+- Difference between **SISO, SIPO, PISO and PIPO**
+- Difference between **Asynchronous and Synchronous Counters**
+- 4-bit **Up and Down Counters**
+- Basic **Moore and Mealy FSM**
+- Writing **Verilog RTL**
+- Writing **Verilog Testbenches**
+- Running **simulation**
+- Reading and analyzing **waveforms**
+- Basic **debugging of sequential designs**
+
+---
+
+# 10. Week 2 Skill Progression
+
+**Digital Design Concepts**  
+↓  
+**Sequential Logic Understanding**  
+↓  
+**RTL Implementation in Verilog**  
+↓  
+**Testbench Development**  
+↓  
+**Simulation & Waveform Analysis**  
+↓  
+**Debugging**
+
+This week helped me move from **understanding sequential circuits** to **implementing and verifying state-based digital designs in Verilog**.
+
+---
+
+# 11. Portfolio Evidence
+
+This week represents hands-on practice rather than theory-only learning.
+
+### Evidence of Practice
+
+- Multiple sequential RTL designs
+- Individual testbenches
+- Clock and reset generation
+- Simulation runs
+- Waveform-based verification
+- Shift register implementations
+- Counter implementations
+- FSM implementations
+- Debugging and output validation
+- EDA Playground simulation links
+
+---
+
+# Week 2 Completion
+
+## ✅ WEEK 2/8 COMPLETED
+
+### Digital Design — Sequential Basics
+
+**Designed → Coded → Simulated → Verified → Analyzed**
+
+### Main Skills Covered
+
+**Latches → Flip-Flops → Registers → Counters → FSM → Testbench → Simulation → Waveform Analysis**
+
+---
+
+## Next Step
+
+### Week 3 — Verilog HDL Basics
+
+Focus:
+
+**Module → Ports → Wire/Reg → Assign → Always → If/Else → Case → Operators → Blocking/Non-Blocking → Parameters**
+
+---
+
+> **Consistency over perfection.  
+> Learn the concept. Write the RTL. Simulate it. Debug it. Understand the waveform.**
